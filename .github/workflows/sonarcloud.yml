@@ -24,6 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # UI Project (Angular)
       - name: Set up Node.js (for UI)
         if: matrix.project == 'ui'
         uses: actions/setup-node@v3
@@ -46,32 +47,37 @@ jobs:
             -Dsonar.organization=BohdanLev \
             -Dsonar.host.url=https://sonarcloud.io
 
-      - name: Set up Java
+      # EI Project (Java)
+      - name: Set up Java (for EI)
         if: matrix.project == 'ei'
         uses: actions/setup-java@v3
         with:
           java-version: '17'
 
-      - name: Run Maven Build and Tests
+      - name: Run Maven Build and Tests (for EI)
         if: matrix.project == 'ei'
         run: mvn clean verify sonar:sonar \
           -Dsonar.projectKey=bohdanlev_TestSonarCloud_ei \
           -Dsonar.organization=BohdanLev \
           -Dsonar.host.url=https://sonarcloud.io
 
-      - name: Set up .NET
+      # .NET Project (App)
+      - name: Set up .NET (for App)
         if: matrix.project == 'app'
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build and Test .NET
+      - name: Build .NET (for App)
         if: matrix.project == 'app'
         run: dotnet build
 
-      - name: Run Sonar Scanner for .NET
+      - name: Run Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
         run: dotnet sonarscanner begin /k:"bohdanlev_TestSonarCloud_app" /o:"BohdanLev" /d:sonar.host.url="https://sonarcloud.io"
-        run: dotnet build
-        run: dotnet test --collect:"Code Coverage"
-        run: dotnet sonarscanner end
+
+      - name: Run Tests and End Sonar Scanner for .NET (for App)
+        if: matrix.project == 'app'
+        run: |
+          dotnet test --collect:"Code Coverage"
+          dotnet sonarscanner end
