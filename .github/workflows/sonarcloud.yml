@@ -47,20 +47,6 @@ jobs:
             -Dsonar.organization=BohdanLev \
             -Dsonar.host.url=https://sonarcloud.io
 
-      # EI Project (Java)
-      - name: Set up Java (for EI)
-        if: matrix.project == 'ei'
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-
-      - name: Run Maven Build and Tests (for EI)
-        if: matrix.project == 'ei'
-        run: mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=bohdanlev_TestSonarCloud_ei \
-          -Dsonar.organization=BohdanLev \
-          -Dsonar.host.url=https://sonarcloud.io
-
       # .NET Project (App)
       - name: Set up .NET (for App)
         if: matrix.project == 'app'
