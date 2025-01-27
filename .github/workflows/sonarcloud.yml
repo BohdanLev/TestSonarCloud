@@ -57,14 +57,17 @@ jobs:
 
       - name: Build .NET (for App)
         if: matrix.project == 'app'
-        run: dotnet build
+        run: dotnet build ./app.sln
+        working-directory: ./app
 
       - name: Run Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
         run: dotnet sonarscanner begin /k:"bohdanlev_TestSonarCloud_app" /o:"bohdanlev" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SonarCloudSecret }}"
+        working-directory: ./app
 
       - name: Run Tests and End Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
         run: |
           dotnet test --collect:"Code Coverage"
           dotnet sonarscanner end /d:sonar.login="${{ secrets.SonarCloudSecret }}"
+        working-directory: ./app
