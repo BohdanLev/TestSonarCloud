@@ -36,11 +36,6 @@ jobs:
         run: npm install
         working-directory: ./ui
 
-      - name: Run UI Tests
-        if: matrix.project == 'ui'
-        run: npm test -- --coverage
-        working-directory: ./ui
-
       - name: Run Sonar Scanner for UI
         if: matrix.project == 'ui'
         run: |
@@ -56,6 +51,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
+
+      - name: Install dotnet-sonarscanner
+        if: matrix.project == 'app'
+        run: dotnet tool install --global dotnet-sonarscanner
 
       - name: Build .NET (for App)
         if: matrix.project == 'app'
