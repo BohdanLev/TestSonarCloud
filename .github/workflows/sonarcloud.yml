@@ -16,8 +16,6 @@ jobs:
     strategy:
       matrix:
         project:
-          - ui
-          - ei
           - app
 
     steps:
@@ -41,7 +39,7 @@ jobs:
         run: |
           npx sonar-scanner \
             -Dsonar.projectKey=bohdanlev_TestSonarCloud_ui \
-            -Dsonar.organization=BohdanLev \
+            -Dsonar.organization=bohdanlev \
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.login="${{ secrets.SonarCloudSecret}}"
         working-directory: ./ui
@@ -64,7 +62,7 @@ jobs:
 
       - name: Run Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
-        run: dotnet sonarscanner begin /k:"bohdanlev_TestSonarCloud_app" /o:"BohdanLev" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SonarCloudSecret }}"
+        run: dotnet sonarscanner begin /k:"bohdanlev_TestSonarCloud_app" /o:"bohdanlev" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SonarCloudSecret }}"
         working-directory: ./app
 
       - name: Run Tests and End Sonar Scanner for .NET (for App)
