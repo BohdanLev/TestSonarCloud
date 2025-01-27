@@ -34,12 +34,12 @@ jobs:
       - name: Install dependencies (for UI)
         if: matrix.project == 'ui'
         run: npm install
-	working-directory: ./ui
+        working-directory: ./ui
 
       - name: Run UI Tests
         if: matrix.project == 'ui'
         run: npm test -- --coverage
-	working-directory: ./ui
+        working-directory: ./ui
 
       - name: Run Sonar Scanner for UI
         if: matrix.project == 'ui'
@@ -48,7 +48,7 @@ jobs:
             -Dsonar.projectKey=bohdanlev_TestSonarCloud_ui \
             -Dsonar.organization=BohdanLev \
             -Dsonar.host.url=https://sonarcloud.io
-	working-directory: ./ui
+        working-directory: ./ui
 
       # .NET Project (App)
       - name: Set up .NET (for App)
@@ -60,16 +60,16 @@ jobs:
       - name: Build .NET (for App)
         if: matrix.project == 'app'
         run: dotnet build
-	working-directory: ./app
+        working-directory: ./app
 
       - name: Run Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
         run: dotnet sonarscanner begin /k:"bohdanlev_TestSonarCloud_app" /o:"BohdanLev" /d:sonar.host.url="https://sonarcloud.io"
-	working-directory: ./app
+        working-directory: ./app
 
       - name: Run Tests and End Sonar Scanner for .NET (for App)
         if: matrix.project == 'app'
         run: |
           dotnet test --collect:"Code Coverage"
           dotnet sonarscanner end
-	working-directory: ./app
+        working-directory: ./app
