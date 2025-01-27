@@ -69,5 +69,5 @@ jobs:
         if: matrix.project == 'app'
         run: |
           dotnet test --collect:"Code Coverage"
-          dotnet sonarscanner end /d:sonar.host.url="https://sonarcloud.io"
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SonarCloudSecret }}"
         working-directory: ./app
