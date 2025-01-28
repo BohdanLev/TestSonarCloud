@@ -7,7 +7,7 @@ module.exports = {
             stringifyContentPathRegex: "\\.html$",
         },
     },
-    // setupFilesAfterEnv: ["<rootDir>/src/setupJest.ts"],
+    setupFilesAfterEnv: ["<rootDir>/setupJest.ts"],
     reporters: ["default"],
     testPathIgnorePatterns: [
         "<rootDir>/node_modules/",
