@@ -47,7 +47,7 @@ jobs:
             -Dsonar.projectKey=bohdanlev_TestSonarCloud_ui \
             -Dsonar.organization=bohdanlev \
             -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login="${{ secrets.SonarCloudSecret}}"
+            -Dsonar.login=${{ secrets.SonarCloudSecret}}
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         working-directory: ./ui
 
