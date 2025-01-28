@@ -17,7 +17,6 @@ jobs:
       matrix:
         project:
           - app
-          - ui
 
     steps:
       - name: Checkout code
